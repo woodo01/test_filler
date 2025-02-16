@@ -1,0 +1,25 @@
+{
+    "name": "Test scanner",
+    "version": "1.0",
+    "manifest_version": 3,
+    "icons": {},
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "scripting",
+        "activeTab"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "js": ["scripts/content.js"],
+            "matches": [
+                "https://*.rs.school/*",
+                "http://*.rs.school/*"
+            ]
+        }
+    ]
+}
