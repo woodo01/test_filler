@@ -12,11 +12,6 @@ document.getElementById("scan").addEventListener("click", () => {
 
 function fillAnswers(answers = []) {
     document.body.style.color = "lightblue";
-    let elements = document.getElementsByClassName('ant-checkbox-input');
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].click();
-    }
-
     if (typeof answers === "string") {
         answers = JSON.parse(answers);
     }
@@ -28,14 +23,13 @@ function fillAnswers(answers = []) {
             if (answers[i].multiple) {
                 for (let j = 0; j < answers[i].value.length; j++) {
                     setTimeout(
-                        () => document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-checkbox-input"][value="${answers[i].value[j]}"]`).click(),
-                        100 * (k++),
+                        () => element.querySelector(`input[class="ant-checkbox-input"][value="${answers[i].value[j]}"]`).click(),
+                        100 * (k++)
                     );
-
                 }
             } else {
                 setTimeout(
-                    () => document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-radio-input"][value="${answers[i].value}"]`).click(),
+                    () => element.querySelector(`input[class="ant-radio-input"][value="${answers[i].value}"]`).click(),
                     100 * (k++)
                 )
             }
@@ -47,198 +41,603 @@ function fillAnswers(answers = []) {
 
 const answers = [
     {
-        "question": "When should you consider using Redux?",
-        "answers": [
-            "When you are just starting to learn React",
-            "When your application becomes complex and managing state becomes difficult",
-            "When you want to implement server-side rendering",
-            "Before creating any React components"
-        ],
+        "question": "Can JavaScript code be executed in a file with the .ts extension?",
         "multiple": false,
+        "answers": [
+            "Yes, it can.",
+            "No, it cannot."
+        ],
         "index": 0,
-        "value": 1
+        "value": 0
     },
     {
-        "question": "Select the scenarios where Redux can be useful.",
+        "question": "According to Microsoft recommendations, should the name of an interface in TS start with an additional 'I'?",
+        "multiple": false,
         "answers": [
-            "Large amounts of shared application state",
-            "Frequent updates to the application state",
-            "Complex logic for updating the state",
-            "Medium or large-sized codebase",
-            "Keeping track of state changes over time"
+            "Yes, it should.",
+            "No, it is not recommended."
         ],
-        "multiple": true,
         "index": 1,
-        "value": [0, 1, 2, 3, 4]
+        "value": 1
     },
     {
-        "question": "What is the main purpose of Redux middleware?",
-        "answers": [
-            "To modify server-side responses",
-            "To handle third-party extensions between dispatching an action and reaching the reducer",
-            "To optimize React components",
-            "To manipulate DOM elements"
-        ],
+        "question": "What advantage does TS have?",
         "multiple": false,
+        "answers": [
+            "It uses class-based object-oriented programming (OOP).",
+            "It provides guidelines for development and coding.",
+            "It facilitates code structuring.",
+            "All of the above."
+        ],
         "index": 2,
-        "value": 1
+        "value": 3
     },
     {
-        "question": "Select the valid use cases for Redux middleware.",
-        "answers": [
-            "Logging",
-            "Crash reporting",
-            "Asynchronous API calls",
-            "Routing",
-            "Styling React components"
-        ],
+        "question": "Which access modifiers are supported in TS?",
         "multiple": true,
+        "answers": [
+            "public",
+            "private",
+            "void",
+            "protected"
+        ],
         "index": 3,
-        "value": [0, 1, 2, 3]
+        "value": [0, 1, 3]
     },
     {
-        "question": "Is using the switch statement mandatory for handling actions in reducers?",
-        "answers": [
-            "Yes, it's the only way to handle actions in reducers",
-            "No, you can use any approach you'd like, such as if statements or lookup tables"
-        ],
+        "question": "Can you use alert() in TS?",
         "multiple": false,
+        "answers": [
+            "Yes, you can.",
+            "No, you cannot."
+        ],
         "index": 4,
-        "value": 1
+        "value": 0
     },
     {
-        "question": "What does the Redux Toolkit package help with in a Redux application?",
+        "question": "Select types in TS:",
+        "multiple": true,
         "answers": [
-            "To provide an MVC architecture for your application",
-            "To simplify common Redux use cases, such as store setup, and offer good default behavior out of the box",
-            "To create React components using Redux",
-            "To implement server-side rendering"
+            "int",
+            "string",
+            "object",
+            "any",
+            "boolean",
+            "tuple",
+            "never",
+            "double",
+            "Array"
         ],
-        "multiple": false,
         "index": 5,
-        "value": 1
+        "value": [1, 2, 3, 4, 5, 6, 8]
     },
     {
-        "question": "What tool is recommended for mocking network requests during testing?",
+        "question": "Valid syntax in TS:",
+        "multiple": true,
         "answers": [
-            "Redux DevTools",
-            "React-Redux hooks",
-            "Mock Service Worker (MSW)",
-            "Jest"
+            "let test = \"hello world\";",
+            "let test: string = \"hello world\";",
+            "let test string = \"hello world\";",
+            "let string test = \"hello world\";",
+            "let test: any = \"hello world\";"
         ],
-        "multiple": false,
         "index": 6,
-        "value": 2
+        "value": [0, 1, 4]
     },
     {
-        "question": "Where should side effects be implemented in Redux?",
-        "answers": [
-            "In reducers",
-            "In mapStateToProps",
-            "In middleware",
-            "In store enhancers"
-        ],
+        "question": "In the expression 'let test: string = \"hello world\";\ntest = 23;'",
         "multiple": false,
+        "answers": [
+            "No error will occur.",
+            "There will be an error because the type is not specified in the second expression.",
+            "There will be an error because the types of the first and second expressions do not match.",
+            "There is no correct answer."
+        ],
         "index": 7,
         "value": 2
     },
     {
-        "question": "Which API is built into Redux Toolkit and specifically designed for data fetching and caching?",
-        "answers": [
-            "Axios",
-            "RTK Query",
-            "Thunk",
-            "createSlice"
-        ],
+        "question": "In the expression 'let test: any = \"hello\";\ntest = 23;'",
         "multiple": false,
+        "answers": [
+            "There will be an error because the type is not specified in the first expression.",
+            "There will be an error because the type is not specified in the second expression.",
+            "No error will occur.",
+            "There is no correct answer."
+        ],
         "index": 8,
-        "value": 1
+        "value": 2
     },
     {
-        "question": "What is the main concept behind the Flux architecture?",
-        "answers": [
-            "Two-way data binding",
-            "Unidirectional data flow",
-            "Model-View separation",
-            "Component-based UI"
-        ],
+        "question": "Which operator is used to check the type of a variable?",
         "multiple": false,
+        "answers": [
+            "instanceof",
+            "getTypeOf",
+            "typeof",
+            "There is no correct answer."
+        ],
         "index": 9,
-        "value": 1
+        "value": 2
     },
     {
-        "question": "Which of the following is a primary component of the MVC architecture?",
+        "question": "What values can the type-checking operator return?",
+        "multiple": true,
         "answers": [
-            "Dispatcher",
-            "Action Creator",
-            "ViewModel",
-            "Controller"
+            "symbol",
+            "number",
+            "boolean",
+            "tuple",
+            "string",
+            "undefined",
+            "bigint",
+            "any"
         ],
-        "multiple": false,
         "index": 10,
-        "value": 3
+        "value": [0, 1, 2, 4, 5, 6]
     },
     {
-        "question": "What is the primary purpose of Thunks in Redux?",
+        "question": "What types of functions can be written in TS?",
+        "multiple": true,
         "answers": [
-            "To combine multiple reducers",
-            "To enable async action creators",
-            "To manage component state",
-            "To optimize rendering performance"
+            "function declaration",
+            "function expression",
+            "arrow function"
         ],
-        "multiple": false,
         "index": 11,
-        "value": 1
+        "value": [0, 1, 2]
     },
     {
-        "question": "What is a primary use case for Redux-Saga?",
-        "answers": [
-            "Managing component state",
-            "Optimizing rendering performance",
-            "Handling complex side effects",
-            "Combining multiple reducers"
-        ],
+        "question": "Is the function call func('1','2') valid for the function function func(a: number, b: number){ \n...some code...\n}?",
         "multiple": false,
+        "answers": [
+            "The call is valid, there will be no error.",
+            "The call is incorrect, but there will be no error.",
+            "The call is incorrect and there will be an error."
+        ],
         "index": 12,
         "value": 2
     },
     {
-        "question": "Which of the following options describes the main function of the useSelector hook in React-Redux?",
-        "answers": [
-            "Enables React components to write data to the Redux store",
-            "Allows React components to read data from the Redux store",
-            "Permits the creation of new selectors for the Redux store",
-            "Enables the removal of data from the Redux store"
-        ],
+        "question": "Can you pass more parameters than expected in a function call in TS?",
         "multiple": false,
+        "answers": [
+            "No, you cannot.",
+            "Yes, you can."
+        ],
         "index": 13,
-        "value": 1
+        "value": 0
     },
     {
-        "question": "Which of the following statements accurately reflects the recommended approach for managing state in a React + Redux application?",
-        "answers": [
-            "Global state should be stored in React components, and local state should go in the Redux store",
-            "Global state should go in the Redux store, and local state should stay in React components",
-            "Both global and local state should be managed exclusively in React components",
-            "Global state and local state should be split between the Redux store and React components equally"
-        ],
+        "question": "Can you set a value that is another expression (e.g., a function call) as the default value for function parameters in TS?",
         "multiple": false,
+        "answers": [
+            "No, you cannot.",
+            "Yes, you can.",
+            "By default, you cannot, but you can create conditions under which it becomes possible."
+        ],
         "index": 14,
         "value": 1
     },
     {
-        "question": "Choose the correct statements:",
+        "question": "How do you correctly describe the type of a function: function func(){\n console.log(\"My function\");\n};",
+        "multiple": false,
         "answers": [
-            "The store is a container that holds the application's global state",
-            "Directly modifying or changing the state inside the Redux store is allowed for flexibility",
-            "The only way to update the state is by dispatching a plain action object to the store",
-            "When an action is dispatched, the store runs the root reducer function to calculate the new state",
-            "Subscribers are notified by the store about state updates, allowing the UI to be refreshed with new data"
+            "()=\u003estring;",
+            "()=\u003evoid;",
+            "(string)=\u003evoid;",
+            "(undefined)=\u003evoid;",
+            "There is no correct answer."
         ],
-        "multiple": true,
         "index": 15,
-        "value": [
-            0, 2, 3, 4
-        ]
+        "value": 1
+    },
+    {
+        "question": "Can a function in TS accept another function as an argument?",
+        "multiple": false,
+        "answers": [
+            "Yes, it can.",
+            "No, it cannot.",
+            "By default, it cannot, but you can create conditions under which it becomes possible."
+        ],
+        "index": 16,
+        "value": 0
+    },
+    {
+        "question": "Is it possible to combine two or more other types to form a combined type representing values that may be any one of those initial types?",
+        "multiple": false,
+        "answers": [
+            "Yes, it is called a union.",
+            "Yes, it is called an onion.",
+            "Yes, it is called a merger.",
+            "No, it is not possible."
+        ],
+        "index": 17,
+        "value": 0
+    },
+    {
+        "question": "In TypeScript, which syntax is used to declare a variable that can be either a 'number' or a 'string'?",
+        "multiple": false,
+        "answers": [
+            "Types cannot be combined in TS.",
+            "number \u0026\u0026 string",
+            "number | string",
+            "number || string",
+            "number \u0026 string"
+        ],
+        "index": 18,
+        "value": 2
+    },
+    {
+        "question": "Which type is suitable for the object let obj = { name: 'Alan', age: 20 }?",
+        "multiple": true,
+        "answers": [
+            "{name: string}",
+            "{name: string; age: number}",
+            "{name: string; age: number; isAdmin: boolean}",
+            "{name: string; age: number; isAdmin?: boolean}",
+            "{age: any; name: any; isAdmin: any}"
+        ],
+        "index": 19,
+        "value": [1, 3]
+    },
+    {
+        "question": "Can a function in TS return an object?",
+        "multiple": false,
+        "answers": [
+            "Yes, it can.",
+            "No, it cannot.",
+            "By default, it cannot, but you can create conditions under which it becomes possible.",
+            "It depends on the type of function (declaration, expression, arrow)."
+        ],
+        "index": 20,
+        "value": 0
+    },
+    {
+        "question": "How do you correctly extend a type alias? (A and B are types in the example)",
+        "multiple": false,
+        "answers": [
+            "Type aliases cannot be extended in TS.",
+            "A \u0026\u0026 B",
+            "A || B",
+            "A | B",
+            "A \u0026 B"
+        ],
+        "index": 21,
+        "value": 4
+    },
+    {
+        "question": "What is 'as' in TS?",
+        "multiple": false,
+        "answers": [
+            "It is a type assertion, a way to specify to the compiler which type (previously declared) the variable will have.",
+            "It is a way to combine types and assign a different type (not previously defined) to a variable during compilation forcibly.",
+            "It is a replacement of the type previously described for a variable with the type needed in a specific line.",
+            "It is a deprecated operator that is not used at the moment."
+        ],
+        "index": 22,
+        "value": 0
+    },
+    {
+        "question": "Which type corresponds to the array let arr = [1, 2, 3];?",
+        "multiple": true,
+        "answers": [
+            "number[ ]",
+            "string[ ]",
+            "Array",
+            "Array\u003cnumber\u003e",
+            "Array\u003cstring\u003e"
+        ],
+        "index": 23,
+        "value": [0, 3]
+    },
+    {
+        "question": "Which type corresponds to the array let arr = [1, 2, 3]; where the elements cannot be modified?",
+        "multiple": true,
+        "answers": [
+            "ReadonlyArray\u003cnumber\u003e",
+            "ReadonlyArray\u003cstring\u003e",
+            "ReadonlyArray",
+            "readonly string[ ]",
+            "readonly number[ ]"
+        ],
+        "index": 24,
+        "value": [0, 4]
+    },
+    {
+        "question": "Does array destructuring work in TS?",
+        "multiple": false,
+        "answers": [
+            "Yes",
+            "No, it doesn't work",
+            "Only in readonly arrays"
+        ],
+        "index": 25,
+        "value": 0
+    },
+    {
+        "question": "What is the type called for the structure: let person: [string, number] = [\"Alan\", 20];",
+        "multiple": false,
+        "answers": [
+            "Readonly Array",
+            "Enum",
+            "Tuple",
+            "Array"
+        ],
+        "index": 26,
+        "value": 2
+    },
+    {
+        "question": "Select the type for let person = [\"Alan\", 20];",
+        "multiple": true,
+        "answers": [
+            "It is impossible to write a type for this structure",
+            "number[  ]",
+            "[number, string]",
+            "string[ ]",
+            "[string, number]",
+            "[never]",
+            "[any]"
+        ],
+        "index": 27,
+        "value": [4]
+    },
+    {
+        "question": "Which enum declaration is correct?",
+        "multiple": true,
+        "answers": [
+            "enum Month { Jan, Feb, Mar, Apr }",
+            "enum Month { Jan=1, Feb=2, Mar=3, Apr=5 }",
+            "enum Month = { Jan, Feb, Mar=3, Apr }",
+            "enum Month { Jan='Янв', Feb='Фев', Mar, Apr='Апр' }",
+            "enum Month { Jan=1, Feb=2, Mar, Apr=5 }",
+            "enum Month { Jan, Feb='Фев', Mar, Apr='Апр' }",
+            "enum Month = { Jan, Feb='Фев', Mar='Мар', Apr='Апр' }",
+            "enum Month { Jan=1, Feb=2, Mar, Apr='Апр' }"
+        ],
+        "index": 28,
+        "value": [0, 1, 4, 7]
+    },
+    {
+        "question": "In the expression 'let someVar: any = \"hello\"; test = 23;'",
+        "multiple": false,
+        "answers": [
+            "No error will occur",
+            "There will be an error because the type is not specified in the second expression",
+            "There will be an error because the types do not match in the first and second expressions",
+            "There is no correct answer"
+        ],
+        "index": 29,
+        "value": [3]
+    },
+    {
+        "question": "What is the value of C in enum One {A = 1,B = 5,C,D = 0}?",
+        "multiple": false,
+        "answers": [
+            "3",
+            "undefined",
+            "6",
+            "5",
+            "There will be an error"
+        ],
+        "index": 30,
+        "value": 2
+    },
+    {
+        "question": "Which TypeScript strictness flag makes TypeScript issue an error on variables implicitly inferred as 'any'?",
+        "multiple": false,
+        "answers": [
+            "strictNullChecks",
+            "noImplicitAny",
+            "strict",
+            "noSurpriseVariables",
+            "noAnyChecks"
+        ],
+        "index": 31,
+        "value": 1
+    },
+    {
+        "question": "What is the purpose of static type-checking in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "To catch runtime errors",
+            "To improve code performance",
+            "To find bugs before code execution",
+            "To enhance code readability"
+        ],
+        "index": 32,
+        "value": 2
+    },
+    {
+        "question": "How can you add type annotations to variables in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "Before the variable, using \"int x = 0;\" style declarations.",
+            "After the variable, using \"let x: string = 'hello';\" style declarations.",
+            "Using the type keyword.",
+            "TypeScript automatically infers types; no annotations needed."
+        ],
+        "index": 33,
+        "value": 1
+    },
+    {
+        "question": "When deciding between type aliases and interfaces, what is recommended to use?",
+        "multiple": false,
+        "answers": [
+            "Always use type aliases for better performance.",
+            "Use type for simple structures and interfaces for complex structures.",
+            "Use interfaces until you need features from type, then switch to type.",
+            "There is no significant difference; choose based on personal preference."
+        ],
+        "index": 34,
+        "value": 2
+    },
+    {
+        "question": "What distinguishes type aliases from interfaces in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "Type aliases are extendable, while interfaces are not.",
+            "Type aliases cannot be re-opened to add new properties, while interfaces can.",
+            "Type aliases are more powerful and versatile than interfaces.",
+            "Interfaces cannot be used to declare the shapes of objects."
+        ],
+        "index": 35,
+        "value": 1
+    },
+    {
+        "question": "When working with class constructors in TypeScript, what is a key difference between function signatures and constructor signatures?",
+        "multiple": false,
+        "answers": [
+            "Constructors can have type parameters, unlike functions",
+            "Constructors can have return type annotations, unlike functions",
+            "Constructors always return the class instance type",
+            "Constructors cannot have default values for parameters"
+        ],
+        "index": 36,
+        "value": 2
+    },
+    {
+        "question": "In TypeScript, what is the default visibility modifier for class members?",
+        "multiple": false,
+        "answers": [
+            "public",
+            "private",
+            "protected",
+            "internal"
+        ],
+        "index": 37,
+        "value": 0
+    },
+    {
+        "question": "What does the question mark (?) signify when used in TypeScript object types?",
+        "multiple": false,
+        "answers": [
+            "The property is required.",
+            "The property is optional.",
+            "The property is read-only.",
+            "The property is a function."
+        ],
+        "index": 38,
+        "value": 1
+    },
+    {
+        "question": "What does the function type expression (a: string) =\u003e void mean in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "A function with one parameter named \"a\" of type string, returning void.",
+            "A function with one parameter named \"string\" of type any.",
+            "A function with a parameter named \"a\" of type any.",
+            "A function with no parameters and returns void."
+        ],
+        "index": 39,
+        "value": 0
+    },
+    {
+        "question": "What role does the never type play in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "It represents a state that shouldn't exist and is used for exhaustive checking.",
+            "It is assignable to every type, including itself.",
+            "It allows concatenation of multiple module source files.",
+            "It absorbs everything in an intersection with unknown."
+        ],
+        "index": 40,
+        "value": 0
+    },
+    {
+        "question": "What is the main advantage of the new unknown top type introduced in TypeScript 3.0?",
+        "multiple": false,
+        "answers": [
+            "It absorbs everything in a union type.",
+            "It allows operations without type assertion or narrowing.",
+            "It is assignable to any type without restrictions.",
+            "It is assignable only to itself and \"any\" without a type assertion or control flow based narrowing."
+        ],
+        "index": 41,
+        "value": 3
+    },
+    {
+        "question": "Which of the following syntax options is valid for const assertions in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "let x = \"hello\" \u003cconst\u003e;",
+            "let y = [10, 20] as const;",
+            "let z = { text: \"hello\" } const;",
+            "let a = (Math.random() \u003c 0.5 ? 0 : 1) as const;"
+        ],
+        "index": 42,
+        "value": 1
+    },
+    {
+        "question": "What is a limitation of const assertions?",
+        "multiple": false,
+        "answers": [
+            "They can only be applied to complex literal expressions.",
+            "Const contexts immediately convert expressions to be fully immutable.",
+            "They cannot be used with array literals.",
+            "They can only be applied to simple literal expressions."
+        ],
+        "index": 43,
+        "value": 3
+    },
+    {
+        "question": "Which of the following are correct ways to perform type assertions in TypeScript?",
+        "multiple": true,
+        "answers": [
+            "const myCanvas = document.getElementById(\"main_canvas\") as HTMLCanvasElement;",
+            "const myCanvas = \u003cHTMLCanvasElement\u003edocument.getElementById(\"main_canvas\");",
+            "const myCanvas = document.getElementById(\"main_canvas\") as string;",
+            "const myCanvas = (HTMLCanvasElement)document.getElementById(\"main_canvas\");"
+        ],
+        "index":44,
+        "value": [0, 1]
+    },
+    {
+        "question": "With strictNullChecks turned on in TypeScript, what is the behavior when a value is null or undefined?",
+        "multiple": false,
+        "answers": [
+            "Values can be accessed normally without any issues",
+            "Null and undefined can be assigned to a property of any type.",
+            "Values must be tested for null or undefined before using methods or properties.",
+            "Both a and b."
+        ],
+        "index": 45,
+        "value": 2
+    },
+    {
+        "question": "What does the postfix ! operator do in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "It negates a boolean value.",
+            "It asserts that a value isn't null or undefined.",
+            "It converts a variable to a different type.",
+            "It is used for arithmetic operations."
+        ],
+        "index": 46,
+        "value": 1
+    },
+    {
+        "question": "What is the purpose of intersection types in TypeScript?",
+        "multiple": false,
+        "answers": [
+            "To create new types by extending existing types using the \u0026 operator.",
+            "To define the relationship between interfaces and objects.",
+            "To handle conflicts between types and aliases.",
+            "To create generic helper types."
+        ],
+        "index": 47,
+        "value": 0
+    },
+    {
+        "question": "What does the keyof operator do?",
+        "multiple": false,
+        "answers": [
+            "It takes an array and produces a union of its elements.",
+            "It takes an object type and produces a union of its keys.",
+            "It converts a string or number into a union type.",
+            "It extracts the values from an array of objects."
+        ],
+        "index": 48,
+        "value": 1
     }
 ]
