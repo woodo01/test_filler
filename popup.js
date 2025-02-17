@@ -1,30 +1,43 @@
 document.getElementById("scan").addEventListener("click", () => {
     // alert(__NEXT_DATA__.props.pageProps.task.publicAttributes.questions.map(({index, value}) => ({index, value})));
+    const answers = document.getElementById("answers").value;
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.scripting.executeScript({
             target: { tabId: tabs[0].id },
-            func: changeBackgroundColor,
+            func: fillAnswers,
             args : [ answers ],
         });
     });
 });
 
-function changeBackgroundColor(answers = []) {
+function fillAnswers(answers = []) {
     document.body.style.color = "lightblue";
     let elements = document.getElementsByClassName('ant-checkbox-input');
     for (let i = 0; i < elements.length; i++) {
         elements[i].click();
     }
 
+    if (typeof answers === "string") {
+        answers = JSON.parse(answers);
+    }
+
+    let k = 0;
     for (let i = 0; i < answers.length; i++) {
         let element = document.getElementById(`answer-${answers[i].index}`);
         if (element) {
             if (answers[i].multiple) {
                 for (let j = 0; j < answers[i].value.length; j++) {
-                    document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-checkbox-input"][value="${answers[i].value[j]}"]`).click();
+                    setTimeout(
+                        () => document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-checkbox-input"][value="${answers[i].value[j]}"]`).click(),
+                        100 * (k++),
+                    );
+
                 }
             } else {
-                document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-radio-input"][value="${answers[i].value}"]`).click();
+                setTimeout(
+                    () => document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-radio-input"][value="${answers[i].value}"]`).click(),
+                    100 * (k++)
+                )
             }
         }
 
@@ -43,7 +56,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 0,
-        "value": 0
+        "value": 1
     },
     {
         "question": "Select the scenarios where Redux can be useful.",
@@ -56,7 +69,7 @@ const answers = [
         ],
         "multiple": true,
         "index": 1,
-        "value": [0]
+        "value": [0, 1, 2, 3, 4]
     },
     {
         "question": "What is the main purpose of Redux middleware?",
@@ -68,7 +81,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 2,
-        "value": 0
+        "value": 1
     },
     {
         "question": "Select the valid use cases for Redux middleware.",
@@ -81,7 +94,7 @@ const answers = [
         ],
         "multiple": true,
         "index": 3,
-        "value": [0]
+        "value": [0, 1, 2, 3]
     },
     {
         "question": "Is using the switch statement mandatory for handling actions in reducers?",
@@ -91,7 +104,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 4,
-        "value": 0
+        "value": 1
     },
     {
         "question": "What does the Redux Toolkit package help with in a Redux application?",
@@ -103,7 +116,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 5,
-        "value": 0
+        "value": 1
     },
     {
         "question": "What tool is recommended for mocking network requests during testing?",
@@ -115,7 +128,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 6,
-        "value": 0
+        "value": 2
     },
     {
         "question": "Where should side effects be implemented in Redux?",
@@ -127,7 +140,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 7,
-        "value": 0
+        "value": 2
     },
     {
         "question": "Which API is built into Redux Toolkit and specifically designed for data fetching and caching?",
@@ -139,7 +152,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 8,
-        "value": 0
+        "value": 1
     },
     {
         "question": "What is the main concept behind the Flux architecture?",
@@ -151,7 +164,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 9,
-        "value": 0
+        "value": 1
     },
     {
         "question": "Which of the following is a primary component of the MVC architecture?",
@@ -163,7 +176,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 10,
-        "value": 0
+        "value": 3
     },
     {
         "question": "What is the primary purpose of Thunks in Redux?",
@@ -175,7 +188,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 11,
-        "value": 0
+        "value": 1
     },
     {
         "question": "What is a primary use case for Redux-Saga?",
@@ -187,7 +200,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 12,
-        "value": 0
+        "value": 2
     },
     {
         "question": "Which of the following options describes the main function of the useSelector hook in React-Redux?",
@@ -199,7 +212,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 13,
-        "value": 0
+        "value": 1
     },
     {
         "question": "Which of the following statements accurately reflects the recommended approach for managing state in a React + Redux application?",
@@ -211,7 +224,7 @@ const answers = [
         ],
         "multiple": false,
         "index": 14,
-        "value": 0
+        "value": 1
     },
     {
         "question": "Choose the correct statements:",
@@ -224,6 +237,8 @@ const answers = [
         ],
         "multiple": true,
         "index": 15,
-        "value": [0]
+        "value": [
+            0, 2, 3, 4
+        ]
     }
 ]

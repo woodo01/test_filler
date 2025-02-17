@@ -17,8 +17,8 @@
         {
             "js": ["scripts/content.js"],
             "matches": [
-                "https://*.rs.school/*",
-                "http://*.rs.school/*"
+                "https://*.rs.school/course/student/auto-test/task*",
+                "http://*.rs.school/course/student/auto-test/task*"
             ]
         }
     ]
