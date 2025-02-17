@@ -1,38 +1,4 @@
-document.getElementById("scan").addEventListener("click", () => {
-    // alert(__NEXT_DATA__.props.pageProps.task.publicAttributes.questions.map(({index, value}) => ({index, value})));
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
-            func: changeBackgroundColor,
-            args : [ answers ],
-        });
-    });
-});
-
-function changeBackgroundColor(answers = []) {
-    document.body.style.color = "lightblue";
-    let elements = document.getElementsByClassName('ant-checkbox-input');
-    for (let i = 0; i < elements.length; i++) {
-        elements[i].click();
-    }
-
-    for (let i = 0; i < answers.length; i++) {
-        let element = document.getElementById(`answer-${answers[i].index}`);
-        if (element) {
-            if (answers[i].multiple) {
-                for (let j = 0; j < answers[i].value.length; j++) {
-                    document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-checkbox-input"][value="${answers[i].value[j]}"]`).click();
-                }
-            } else {
-                document.getElementById(`answer-${answers[i].index}`).querySelector(`input[class="ant-radio-input"][value="${answers[i].value}"]`).click();
-            }
-        }
-
-    }
-}
-
-
-const answers = [
+[
     {
         "question": "When should you consider using Redux?",
         "answers": [
@@ -56,7 +22,7 @@ const answers = [
         ],
         "multiple": true,
         "index": 1,
-        "value": [0]
+        "value": 0
     },
     {
         "question": "What is the main purpose of Redux middleware?",
@@ -81,7 +47,7 @@ const answers = [
         ],
         "multiple": true,
         "index": 3,
-        "value": [0]
+        "value": 0
     },
     {
         "question": "Is using the switch statement mandatory for handling actions in reducers?",
@@ -224,6 +190,6 @@ const answers = [
         ],
         "multiple": true,
         "index": 15,
-        "value": [0]
+        "value": 0
     }
 ]
